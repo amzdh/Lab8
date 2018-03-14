@@ -44,6 +44,17 @@ public class EmployeeDatabase {
         return manager;
     }
 
+    Employee[] countEmployee(final Employee employee) {
+        Employee[] result= new Employee[count];
+        Employee manager = null;
+        int j = 0;
+        for(int i = 0; i < employees.size(); i++) {
+            if(emoloyees.get(i).getName() == employee.getManager()) {
+                result[j] = employees.get(i);
+            }
+        }
+        return result;
+    }
     /**
      * Count the number of managers above this employee.
      * <p>
@@ -53,6 +64,13 @@ public class EmployeeDatabase {
      * @return int
      */
     public int countManagersAbove(final Employee employee) {
+        Employee a = employee;
+        int count = 0;
+        if (findManager(a) != null) {
+            a = findManager(employee);
+            count = 1 + countManagersAbove(a);
+        }
+        return count;
         /*
          * Implement this function
          */
@@ -67,6 +85,12 @@ public class EmployeeDatabase {
      * @return int
      */
     public int countEmployeesUnder(final Employee employee) {
+        int count = 0;
+        Employee x = employee;
+        if (countEmployeesUnder(a) != 0) {
+            count += countEmployeesUnder(a);
+        }
+        return count;
         /*
          * Implement this function
          */
